@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5ef">
+    <title>{{ livro.titulo }} — LivraCuca</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --page: #f7f5ef;
+            --surface: #fffdf9;
+            --ink: #24342f;
+            --muted: #718079;
+            --brand: #276653;
+            --brand-dark: #1d4e40;
+            --accent: #e79a72;
+            --line: #e9e5dc;
+            --shadow: 0 12px 36px rgb(36 52 47 / 9%);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            display: grid;
+            min-height: 100vh;
+            margin: 0;
+            padding: 48px 24px;
+            place-items: center;
+            background:
+                radial-gradient(ellipse at 50% -15%, rgb(231 154 114 / 16%), transparent 42%),
+                var(--page);
+            color: var(--ink);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+        }
+
+        .pagina { width: min(920px, 100%); }
+
+        .marca {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 25px;
+            color: var(--brand);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            text-decoration: none;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: minmax(210px, 300px) minmax(0, 1fr);
+            gap: clamp(28px, 6vw, 56px);
+            align-items: start;
+            padding: clamp(24px, 5vw, 52px);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            animation: aparecer 420ms ease both;
+        }
+
+        .capa-container {
+            position: sticky;
+            top: 24px;
+            display: grid;
+            min-height: 320px;
+            overflow: hidden;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #e8eee8, #f4e8df);
+        }
+
+        .capa-container::after {
+            position: absolute;
+            z-index: 0;
+            color: var(--muted);
+            content: "📚 Capa indisponível";
+            font-size: 0.9rem;
+        }
+
+        .capa {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-height: 460px;
+            object-fit: contain;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgb(36 52 47 / 16%);
+        }
+
+        .info { min-width: 0; }
+
+        .eyebrow {
+            margin: 3px 0 12px;
+            color: var(--brand);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 26px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: -0.045em;
+            line-height: 1.1;
+            overflow-wrap: anywhere;
+        }
+
+        .rotulo {
+            margin: 0 0 9px;
+            color: var(--ink);
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .descricao {
+            margin: 0;
+            color: #53635c;
+            font-size: 1.04rem;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .assuntos {
+            margin-top: 28px;
+            padding: 18px 20px;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            background: #f8f5ef;
+        }
+
+        .assuntos p:last-child {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.94rem;
+            line-height: 1.6;
+        }
+
+        .botao-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 32px;
+            padding: 13px 19px;
+            border-radius: 999px;
+            background: var(--brand);
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 180ms ease, background 180ms ease;
+        }
+
+        .botao-voltar:hover { transform: translateY(-2px); background: var(--brand-dark); }
+        :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 680px) {
+            body { padding: 28px 16px; }
+            .container { grid-template-columns: 1fr; gap: 28px; border-radius: 19px; }
+            .capa-container { position: relative; top: auto; width: min(260px, 100%); min-height: 300px; margin: 0 auto; }
+            .capa { max-height: 380px; }
+            h1 { margin-bottom: 22px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="pagina">
+        <a class="marca" href="/">📚 LivraCuca</a>
+        <article class="container">
+            <div class="capa-container">
+                <img
+                    class="capa"
+                    src="{{ livro.capa_url }}"
+                    alt="Capa de {{ livro.titulo }}"
+                    onerror="this.style.display='none'">
+            </div>
+            <div class="info">
+                <p class="eyebrow">Detalhes da obra</p>
+                <h1>{{ livro.titulo }}</h1>
+
+                <section aria-labelledby="titulo-descricao">
+                    <h2 class="rotulo" id="titulo-descricao">Sinopse / descrição</h2>
+                    <p class="descricao">{{ livro.descricao }}</p>
+                </section>
+
+                <section class="assuntos" aria-labelledby="titulo-assuntos">
+                    <p class="rotulo" id="titulo-assuntos">Tags / assuntos</p>
+                    <p>{{ livro.assuntos }}</p>
+                </section>
+
+                <a href="/" class="botao-voltar"><span aria-hidden="true">←</span> Voltar ao catálogo</a>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

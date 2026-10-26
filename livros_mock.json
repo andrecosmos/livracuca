@@ -1,0 +1,20 @@
+[
+  {
+    "titulo": "Python Cookbook",
+    "autores": "David Beazley, Brian K. Jones",
+    "ano": 2013,
+    "capa_url": "https://openlibrary.org"
+  },
+  {
+    "titulo": "Fluent Python",
+    "autores": "Luciano Ramalho",
+    "ano": 2015,
+    "capa_url": "https://openlibrary.org"
+  },
+  {
+    "titulo": "Introduction to Algorithms",
+    "autores": "Thomas H. Cormen",
+    "ano": 1990,
+    "capa_url": "https://openlibrary.org"
+  }
+]
